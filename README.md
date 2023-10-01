@@ -2,7 +2,7 @@
 
 Concord is a feature complete ECS for LÖVE.
 It's main focus is performance and ease of use.
-With Concord it is possibile to easily write fast and clean code. 
+With Concord it is possible to easily write fast and clean code. 
 
 This readme will explain how to use Concord.
 
@@ -148,7 +148,7 @@ print(Concord.components.componentName)
 #### Method chaining
 ```lua
 -- Most (if not all) methods will return self
--- This allowes you to chain methods
+-- This allows you to chain methods
 
 myEntity
 :give("position", 100, 50)
@@ -177,7 +177,7 @@ end)
 
 -- Create a ComponentClass without a populate function
 -- Components of this type won't have any fields.
--- This can be useful to indiciate state.
+-- This can be useful to indicate state.
 local pushableComponentClass = Concord.component("position")
 ```
 
