@@ -133,16 +133,21 @@ Concord does a few things that might not be immediately clear. This segment shou
 Since you'll have lots of Components and Systems in your game Concord makes it a bit easier to load things in.
 
 ```lua
--- Loads all files in the directory, and puts the return value in the table Systems. The key is their filename without any extension
-local Systems = {}
-Concord.utils.loadNamespace("path/to/systems", Systems)
-
-print(Systems.systemName)
-
 -- Loads all files in the directory. Components automatically register into Concord.components, so loading them into a namespace isn't necessary.
 Concord.utils.loadNamespace("path/to/components")
 
 print(Concord.components.componentName)
+
+-- Loads all files in the directory, and puts the return value in the table Systems. The key is their filename without any extension
+local Systems = {}
+Concord.utils.loadNamespace("path/to/systems", Systems)
+
+myWorld:addSystems(
+  Systems.healthSystem
+  Systems.damageSystem,
+  Systems.moveSystem,
+ -- etc
+)
 ```
 
 #### Method chaining
@@ -170,7 +175,7 @@ When defining a ComponentClass you need to pass in a name and usually a `populat
 -- Create the position class with a populate function
 -- The component variable is the actual Component given to an Entity
 -- The x and y variables are values we pass in when we create the Component 
-Concord.component("position" function(component, x, y)
+Concord.component("position", function(component, x, y)
     component.x = x or 0
     component.y = y or 0
 end)
@@ -294,14 +299,14 @@ end
 -- Defining a function
 function mySystemClass:update(dt)
     -- Iterate over all entities in the Pool
-    for _, e in ipairs(self.pool) 
+    for _, e in ipairs(self.pool) do
         -- Do something with the Components
         e.position.x = e.position.x + e.velocity.x * dt
         e.position.y = e.position.y + e.velocity.y * dt
     end
 
     -- Iterate over all entities in the second Pool
-    for _, e in ipairs(self.secondPool) 
+    for _, e in ipairs(self.secondPool) do
         -- Do something
     end
 end
